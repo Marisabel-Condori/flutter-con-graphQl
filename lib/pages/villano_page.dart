@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 
-class HeroePage extends StatelessWidget {
+class VillanoPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(child: Text('heroe page')),
+      body: Center(child: Text('villano page')),
     );
   }
 }
