@@ -57,7 +57,7 @@ class GraphQlBD{
         print(result.exception.toString());
     }
 
-    final repositoriesH = await result.data["heroe"][0];
+    final repositoriesH = await result.data["heroe"];
    // print(repositoriesH);
     return repositoriesH;
   }
@@ -69,7 +69,7 @@ class GraphQlBD{
         print(result.exception.toString());
     }
 
-    final repositoriesV = result.data["villano"][0];
+    final repositoriesV = result.data["villano"];
   //  print(repositoriesV);
     return repositoriesV;
   }

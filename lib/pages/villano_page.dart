@@ -6,18 +6,32 @@ class VillanoPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    
+    print('********************************************************villano page');
+    List<Villano> villanoProvider = Provider.of<VillanoProvider>(context).listavillano;
+    print('villano provider.listavillano: $villanoProvider');
+    List<Widget> widgetListVillano = villanoProvider.map(( widgetVill) {
+      print('*******************************************antes de entrar a la tarjeta');
+      return 
+      _Tarjeta(
+        nombreT: widgetVill.nombre,
+        imagenUrlT: widgetVill.imagenUrl,
+      );
+    }).toList();
     return Scaffold(
-      body: Column(
-        children: [
-          _Tarjeta()
-        ],
+      body: SingleChildScrollView(
+        child: Column(
+          children:widgetListVillano,
+        ),
       ),
     );
   }
 }
 
 class _Tarjeta extends StatelessWidget {
+  final nombreT;  final imagenUrlT;
+
+  _Tarjeta({ this.nombreT, this.imagenUrlT});
+
   @override
   Widget build(BuildContext context) {
     final villanoProvider = Provider.of<VillanoProvider>(context);
@@ -30,7 +44,7 @@ class _Tarjeta extends StatelessWidget {
           children: [
             Container(
               child: Image(
-                image: NetworkImage(villanoProvider.imagenUrl),
+                image: NetworkImage(this.imagenUrlT),
                 fit: BoxFit.cover,
               ),
               width: double.infinity,
@@ -39,7 +53,7 @@ class _Tarjeta extends StatelessWidget {
             ),
             Container(
              alignment: Alignment.center,
-             child: Text(villanoProvider.nombre, style: TextStyle(fontSize: 30.0, color: Colors.white70)),
+             child: Text(this.nombreT, style: TextStyle(fontSize: 30.0, color: Colors.white70)),
              width: double.infinity,
              height: 50.0,
              color: Colors.white24,

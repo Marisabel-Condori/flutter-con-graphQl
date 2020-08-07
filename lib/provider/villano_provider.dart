@@ -1,6 +1,31 @@
 import 'package:flutter/material.dart';
 
 class VillanoProvider with ChangeNotifier{
+  List<Villano> _listaVillano = new List();
+  
+  List get listavillano => this._listaVillano;
+
+  llenarListaVillano(List lista){
+    print('*******************llena lista villano');
+    print(_listaVillano);
+    this._listaVillano = lista.map((villano) {
+      Villano itemVillano = new Villano();
+      itemVillano.llenarDatos(villano);
+      return itemVillano;
+    }).toList();
+  }
+}
+
+class Villano{
+
+  llenarDatos(Map mapaVillano){
+    print('*******************llena datos');
+    id        = mapaVillano['id'];
+    nombre    = mapaVillano['nombre'];
+    alias     = mapaVillano['alias'];
+    poderes   = mapaVillano['poderes'];
+    imagenUrl = mapaVillano['imagenUrl'];
+  }
   String _id;
   String _nombre;
   String _alias;
@@ -18,5 +43,4 @@ class VillanoProvider with ChangeNotifier{
   set alias(valor){     this._alias     = valor; }
   set poderes(valor){   this._poderes   = valor; }
   set imagenUrl(valor){ this._imagenUrl = valor; }
-
 }

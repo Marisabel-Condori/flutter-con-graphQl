@@ -11,14 +11,14 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final heroeProvider = Provider.of<HeroeProvider>(context);
-    final villanoProvider = Provider.of<VillanoProvider>(context);
+  //  final villanoProvider = Provider.of<VillanoProvider>(context);
     return Scaffold(
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            ItemBoton(text: 'Heroe' ,graphHeroeVillano: graphHeroeVillano, opProvider: heroeProvider),
-            ItemBoton(text: 'Villanos', graphHeroeVillano: graphHeroeVillano, opProvider: villanoProvider),
+            ItemBoton(text: 'Heroe' ,graphHeroeVillano: graphHeroeVillano),
+            ItemBoton(text: 'Villanos', graphHeroeVillano: graphHeroeVillano),
             // RaisedButton(
             //   child: Text('Villano'),
             //   onPressed: () async{ 
@@ -39,10 +39,10 @@ class HomePage extends StatelessWidget {
 }
 
 class ItemBoton extends StatelessWidget {
-  final String text;  final GraphQlBD graphHeroeVillano;  final opProvider;
+  final String text;  final GraphQlBD graphHeroeVillano;
 
   ItemBoton({
-    this.text,  @required this.graphHeroeVillano,  @required this.opProvider,
+    this.text,  @required this.graphHeroeVillano,
   });
 
   @override
@@ -51,21 +51,25 @@ class ItemBoton extends StatelessWidget {
       child: Text(this.text),
       onPressed: () async{ 
         if (this.text == 'Heroe') {
-          Map heroeMap = await graphHeroeVillano.bdConsultasHeroe();
-              opProvider.id = heroeMap['id'];
-              opProvider.nombre = heroeMap['nombre'];
-              opProvider.alias = heroeMap['alias'];
-              opProvider.poderes = heroeMap['poderes'];
-              opProvider.imagenUrl = heroeMap['imagenUrl'];
+          // Map heroeMap = await graphHeroeVillano.bdConsultasHeroe();
+          //     opProvider.id = heroeMap['id'];
+          //     opProvider.nombre = heroeMap['nombre'];
+          //     opProvider.alias = heroeMap['alias'];
+          //     opProvider.poderes = heroeMap['poderes'];
+          //     opProvider.imagenUrl = heroeMap['imagenUrl'];
               Navigator.pushNamed(context, 'heroe');
         } else {
-          Map villanoMap = await graphHeroeVillano.bdConsultasVillano();
-                opProvider.id = villanoMap['id'];
-                opProvider.nombre = villanoMap['nombre'];
-                opProvider.alias = villanoMap['alias'];
-                opProvider.poderes = villanoMap['poder'];
-                opProvider.imagenUrl = villanoMap['imagenUrl'];
-                Navigator.pushNamed(context, 'villano');
+          final villanoProvider = Provider.of<VillanoProvider>(context, listen: false);
+          //       villanoProvider.id = villanoMap['id'];
+          //       villanoProvider.nombre = villanoMap['nombre'];
+          //       villanoProvider.alias = villanoMap['alias'];
+          //       villanoProvider.poderes = villanoMap['poder'];
+          //       villanoProvider.imagenUrl = villanoMap['imagenUrl'];
+          
+          List villanoList = await graphHeroeVillano.bdConsultasVillano();
+          villanoProvider.llenarListaVillano(villanoList);
+          print(villanoList);
+          Navigator.pushNamed(context, 'villano');
         }   
       }
     );
