@@ -10,8 +10,6 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final heroeProvider = Provider.of<HeroeProvider>(context);
-  //  final villanoProvider = Provider.of<VillanoProvider>(context);
     return Scaffold(
       body: Center(
         child: Column(
@@ -51,7 +49,11 @@ class ItemBoton extends StatelessWidget {
       child: Text(this.text),
       onPressed: () async{ 
         if (this.text == 'Heroe') {
-          // Map heroeMap = await graphHeroeVillano.bdConsultasHeroe();
+          final heroeProvider = Provider.of<HeroeProvider>(context, listen: false);
+           List heroeList = await graphHeroeVillano.bdConsultasHeroe();
+          //  print(" ***************** home page datos heroe");
+          //  print(heroeList);
+           heroeProvider.llenarListaHeroes(heroeList);
           //     opProvider.id = heroeMap['id'];
           //     opProvider.nombre = heroeMap['nombre'];
           //     opProvider.alias = heroeMap['alias'];

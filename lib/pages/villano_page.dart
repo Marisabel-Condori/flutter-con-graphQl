@@ -34,7 +34,6 @@ class _Tarjeta extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final villanoProvider = Provider.of<VillanoProvider>(context);
     return Container(
       margin: EdgeInsets.all(10.0),
       child: ClipRRect(

@@ -3,28 +3,32 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class HeroePage extends StatelessWidget {
-  
 
   @override
   Widget build(BuildContext context) {
+    List<Heroe> heroeProvider = Provider.of<HeroeProvider>(context).listaHeroe;
+    List<Widget> listaHeroes = heroeProvider.map((e) {
+      return _Tarjeta(imagenUrlT: e.imagenUrl, nombreT: e.nombre,);
+    }).toList();
     
     return Scaffold(
-      body: Center(
+      body: SingleChildScrollView(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            _Tarjeta()
-          ],
-        )
+          children: listaHeroes,
+        ),
       ),
     );
   }
 }
 
 class _Tarjeta extends StatelessWidget {
+  final nombreT;  final imagenUrlT;
+
+  _Tarjeta({ this.nombreT, this.imagenUrlT});
+
   @override
   Widget build(BuildContext context) {
-    final heroeProvider = Provider.of<HeroeProvider>(context);
     return Container(
       margin: EdgeInsets.all(10.0),
       child: ClipRRect(
@@ -34,7 +38,7 @@ class _Tarjeta extends StatelessWidget {
           children: [
             Container(
               child: Image(
-                image: NetworkImage(heroeProvider.imagenUrl),
+                image: NetworkImage(this.imagenUrlT),
                 fit: BoxFit.cover,
               ),
               width: double.infinity,
@@ -43,7 +47,7 @@ class _Tarjeta extends StatelessWidget {
             ),
             Container(
              alignment: Alignment.center,
-             child: Text(heroeProvider.nombre, style: TextStyle(fontSize: 30.0, color: Colors.white70)),
+             child: Text(this.nombreT, style: TextStyle(fontSize: 30.0, color: Colors.white70)),
              width: double.infinity,
              height: 50.0,
              color: Colors.white24,
