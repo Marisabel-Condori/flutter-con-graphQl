@@ -23,7 +23,7 @@ class Villano{
     id        = mapaVillano['id'];
     nombre    = mapaVillano['nombre'];
     alias     = mapaVillano['alias'];
-    poderes   = mapaVillano['poderes'];
+    poderes   = mapaVillano['poder'];
     imagenUrl = mapaVillano['imagenUrl'];
   }
   String _id;

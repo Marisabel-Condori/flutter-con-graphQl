@@ -1,5 +1,7 @@
 import 'package:app_graphql/pages/heroe_page.dart';
 import 'package:app_graphql/pages/home_page.dart';
+import 'package:app_graphql/pages/pantalla_heroe_page.dart';
+import 'package:app_graphql/pages/pantalla_villano_page.dart';
 import 'package:app_graphql/pages/villano_page.dart';
 import 'package:app_graphql/provider/heroe_provider.dart';
 import 'package:app_graphql/provider/villano_provider.dart';
@@ -24,6 +26,8 @@ class MyApp extends StatelessWidget {
           '/': (BuildContext context) => HomePage(),
           'heroe': (BuildContext context) => HeroePage(),
           'villano': (BuildContext context) => VillanoPage(),
+          'heroePantalla': (BuildContext context) => PantallaHeroePage(),
+          'villanoPantalla': (BuildContext context) => PantallaVillanoPage(),
         },
       ),
     );

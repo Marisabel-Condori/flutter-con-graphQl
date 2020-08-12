@@ -6,16 +6,13 @@ class VillanoPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print('********************************************************villano page');
+ //   print('********************************************************villano page');
     List<Villano> villanoProvider = Provider.of<VillanoProvider>(context).listavillano;
-    print('villano provider.listavillano: $villanoProvider');
+  //  print('villano provider.listavillano: $villanoProvider');
     List<Widget> widgetListVillano = villanoProvider.map(( widgetVill) {
-      print('*******************************************antes de entrar a la tarjeta');
+  //    print('*******************************************antes de entrar a la tarjeta');
       return 
-      _Tarjeta(
-        nombreT: widgetVill.nombre,
-        imagenUrlT: widgetVill.imagenUrl,
-      );
+      _Tarjeta(villano:  widgetVill);
     }).toList();
     return Scaffold(
       body: SingleChildScrollView(
@@ -28,50 +25,44 @@ class VillanoPage extends StatelessWidget {
 }
 
 class _Tarjeta extends StatelessWidget {
-  final nombreT;  final imagenUrlT;
+  final Villano villano;
 
-  _Tarjeta({ this.nombreT, this.imagenUrlT});
+  _Tarjeta({ this.villano});
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      margin: EdgeInsets.all(10.0),
-      child: ClipRRect(
-        borderRadius: BorderRadius.circular(10.0),
-        child: Stack(
-          alignment: Alignment.bottomCenter,
-          children: [
-            Container(
-              child: Image(
-                image: NetworkImage(this.imagenUrlT),
-                fit: BoxFit.cover,
+    return GestureDetector(
+      onTap: (){
+        Navigator.pushNamed(context, 'villanoPantalla', arguments: villano);
+      },
+      child: Container(
+        margin: EdgeInsets.all(10.0),
+        child: ClipRRect(
+          borderRadius: BorderRadius.circular(10.0),
+          child: Stack(
+            alignment: Alignment.bottomCenter,
+            children: [
+              Container(
+                child: Image(
+                  image: NetworkImage(this.villano.imagenUrl),
+                  fit: BoxFit.cover,
+                ),
+                width: double.infinity,
+                height: 210.0,
+                color: Colors.black54,
               ),
-              width: double.infinity,
-              height: 210.0,
-              color: Colors.black54,
-            ),
-            Container(
-             alignment: Alignment.center,
-             child: Text(this.nombreT, style: TextStyle(fontSize: 30.0, color: Colors.white70)),
-             width: double.infinity,
-             height: 50.0,
-             color: Colors.white24,
-            )
-          ],
+              Container(
+               alignment: Alignment.center,
+               child: Text(this.villano.nombre, style: TextStyle(fontSize: 30.0, color: Colors.white70)),
+               width: double.infinity,
+               height: 50.0,
+               color: Colors.white24,
+              )
+            ],
+          ),
         ),
       ),
     );
   }
 }
 
-
-      //Column(
-        //   mainAxisAlignment: MainAxisAlignment.center,
-        //   children: [
-        //     Text('id: ${villanoProvider.id}'),
-        //     Text('nombre: ${villanoProvider.nombre}'),
-        //     Text('alias: ${villanoProvider.alias}'),
-        //     Text('poderes: ${villanoProvider.poderes}'),
-        //     Text('imagen Url: ${villanoProvider.imagenUrl}')
-        //   ],
-        // )

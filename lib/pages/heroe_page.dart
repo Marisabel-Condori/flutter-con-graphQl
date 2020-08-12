@@ -8,7 +8,7 @@ class HeroePage extends StatelessWidget {
   Widget build(BuildContext context) {
     List<Heroe> heroeProvider = Provider.of<HeroeProvider>(context).listaHeroe;
     List<Widget> listaHeroes = heroeProvider.map((e) {
-      return _Tarjeta(imagenUrlT: e.imagenUrl, nombreT: e.nombre,);
+      return _Tarjeta(heroe: e);
     }).toList();
     
     return Scaffold(
@@ -23,36 +23,39 @@ class HeroePage extends StatelessWidget {
 }
 
 class _Tarjeta extends StatelessWidget {
-  final nombreT;  final imagenUrlT;
+  final Heroe heroe;
 
-  _Tarjeta({ this.nombreT, this.imagenUrlT});
+  _Tarjeta({ this.heroe});
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      margin: EdgeInsets.all(10.0),
-      child: ClipRRect(
-        borderRadius: BorderRadius.circular(10.0),
-        child: Stack(
-          alignment: Alignment.bottomCenter,
-          children: [
-            Container(
-              child: Image(
-                image: NetworkImage(this.imagenUrlT),
-                fit: BoxFit.cover,
+    return GestureDetector(
+      onTap: () => Navigator.pushNamed(context, 'heroePantalla', arguments: this.heroe),
+      child: Container(
+        margin: EdgeInsets.all(10.0),
+        child: ClipRRect(
+          borderRadius: BorderRadius.circular(10.0),
+          child: Stack(
+            alignment: Alignment.bottomCenter,
+            children: [
+              Container(
+                child: Image(
+                  image: NetworkImage(this.heroe.imagenUrl),
+                  fit: BoxFit.cover,
+                ),
+                width: double.infinity,
+                height: 210.0,
+                color: Colors.black54,
               ),
-              width: double.infinity,
-              height: 210.0,
-              color: Colors.black54,
-            ),
-            Container(
-             alignment: Alignment.center,
-             child: Text(this.nombreT, style: TextStyle(fontSize: 30.0, color: Colors.white70)),
-             width: double.infinity,
-             height: 50.0,
-             color: Colors.white24,
-            )
-          ],
+              Container(
+               alignment: Alignment.center,
+               child: Text(this.heroe.nombre, style: TextStyle(fontSize: 30.0, color: Colors.white70)),
+               width: double.infinity,
+               height: 50.0,
+               color: Colors.white24,
+              )
+            ],
+          ),
         ),
       ),
     );
